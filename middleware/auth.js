@@ -102,7 +102,12 @@ exports.login = function (req, res) {
     });
 }
 
-//halaman untuk user role =2
+//halaman untuk user role =1
 exports.rahasiauser = function (req, res) {
     response.ok("URL Authentifikasi role 2!", res);
+};
+
+//halaman untuk user role =2
+exports.rahasiapelanggan = function (req, res) {
+    response.ok("URL Authentifikasi role 1!", res);
 };
