@@ -1,6 +1,7 @@
 var connection = require("../koneksi");
 var mysql = require("mysql");
 var md5 = require("MD5");
+var mysql = require('mysql');
 var response = require('../res');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('../config/secret');
@@ -100,3 +101,8 @@ exports.login = function (req, res) {
         }
     });
 }
+
+//halaman untuk user role =2
+exports.rahasiauser = function (req, res) {
+    response.ok("URL Authentifikasi role 2!", res);
+};
