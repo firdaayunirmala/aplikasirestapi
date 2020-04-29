@@ -56,9 +56,9 @@ exports.login = function (req, res) {
 
     var table = ["t_user", "password", md5(post.password), "email", post.email];
 
-    query = mysql.format(query,table);
+    query = mysql.format(query, table);
 
-    connection.query(query, function (error,rows) {
+    connection.query(query, function (error, rows) {
         if (error) {
             console.log(error)
         }
@@ -69,12 +69,12 @@ exports.login = function (req, res) {
                     expiresIn: 1440
                 });
                 id_user = rows[0].id_user;
-               
+
                 var data = {
                     id_user: id_user,
                     access_token: token,
                     ip_address: ip.address()
-                    
+
                 }
 
                 var query = "INSERT INTO  ?? SET ?";
@@ -82,17 +82,15 @@ exports.login = function (req, res) {
 
 
                 query = mysql.format(query, table);
-                connection.query(query, data, function (error,rows) 
-                
-                {
-                    if (error){
+                connection.query(query, data, function (error, rows) {
+                    if (error) {
                         console.log(error);
                     } else {
                         res.json({
-                            success:true,
-                            message:'Token JWT generated',
-                            token:token,
-                            currUser:data.id_user
+                            success: true,
+                            message: 'Token JWT generated',
+                            token: token,
+                            currUser: data.id_user
                         });
                     }
                 });
@@ -108,29 +106,30 @@ exports.login = function (req, res) {
 //menambahkan data service
 exports.tambahdataservice = function (req, res) {
     var post = {
-     tgl_service: new Date(),
-     id_user: req.body.id_user,
-     id_montir: req.body.id_montir,
-     jumlah_sparepart: req.body.jumlah_sparepart,	
-     id_sparepart: req.body.id_sparepart,
-     jam_service: req.body.jam_service
+        tgl_servis: new Date(),
+        id_user: req.body.id_user,
+        id_montir: req.body.id_montir,
+        jumlah_sparepart: req.body.jumlah_sparepart,
+        id_sparepart: req.body.id_sparepart,
+        jam_servis: req.body.jam_servis
     }
     var query = "INSERT INTO ?? SET ?";
-    var table = ["t_service"];
- 
-    query = mysql.format(query, table);
-     connection.query(query, post, function (error, rows) {
-             if (error) {
-                 console.log(error);
-             } else {
-                 response.ok("Berhasil Menambahkan Data", res)
-             }
-         });
- };
+    var table = ["t_servis"];
 
- exports.halamanrahasia = function(req,res){
-    response.ok("Halaman ini hanya untuk pelanggan dengan level = 2!",res);
+    query = mysql.format(query, table);
+    connection.query(query, post, function (error, rows) {
+        if (error) {
+            console.log(error);
+        } else {
+            response.ok("Berhasil Menambahkan Data", res)
+        }
+    });
+};
+
+//
+exports.halamanrahasia = function (req, res) {
+    response.ok("Halaman ini hanya untuk admin dengan level = 1!", res);
 }
-exports.halamanrahasia1 = function(req,res){
-    response.ok("Halaman ini hanya untuk admin dengan level = 1!",res);
+exports.halamanrahasia1 = function (req, res) {
+    response.ok("Halaman ini hanya untuk pelanggan dengan level = 2!", res);
 }

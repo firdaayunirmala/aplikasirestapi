@@ -30,11 +30,11 @@ function verifikasi() {
 function verifikasi() {
     return function (req, rest, next) {
         var role = req.body.role;
-        //cek authorizzation header
+
         var tokenWithBearer = req.headers.authorization;
         if (tokenWithBearer) {
             var token = tokenWithBearer.split(' ')[1];
-            //verifikasi
+
             jwt.verify(token, config.secret, function (err, decoded) {
                 if (err) {
                     return rest.status(401).send({ auth: false, mesaage: 'Token tidak terdaftar!' });
