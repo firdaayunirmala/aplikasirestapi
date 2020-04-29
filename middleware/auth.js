@@ -56,9 +56,9 @@ exports.login = function (req, res) {
 
     var table = ["t_user", "password", md5(post.password), "email", post.email];
 
-    query = mysql.format(query, table);
+    query = mysql.format(query,table);
 
-    connection.query(query, function (error, rows) {
+    connection.query(query, function (error,rows) {
         if (error) {
             console.log(error)
         }
@@ -68,28 +68,31 @@ exports.login = function (req, res) {
                 var token = jwt.sign({ rows }, config.secret, {
                     expiresIn: 1440
                 });
-                id_user = rows[0].id;
-                console.log(id_user);
-                console.log(token);
-                console.log(ip.address());
+                id_user = rows[0].id_user;
+               
                 var data = {
                     id_user: id_user,
                     access_token: token,
                     ip_address: ip.address()
+                    
                 }
-                var query = "INSERT INTO  ?? SET  ?";
+
+                var query = "INSERT INTO  ?? SET ?";
                 var table = ["akses_token"];
 
+
                 query = mysql.format(query, table);
-                connection.query(query, data, function (error, rows) {
-                    if (error) {
+                connection.query(query, data, function (error,rows) 
+                
+                {
+                    if (error){
                         console.log(error);
                     } else {
                         res.json({
-                            success: true,
-                            message: 'Token generated',
-                            token: token,
-                            currUser: data.id_user
+                            success:true,
+                            message:'Token JWT generated',
+                            token:token,
+                            currUser:data.id_user
                         });
                     }
                 });
@@ -102,12 +105,32 @@ exports.login = function (req, res) {
     });
 }
 
-//halaman untuk user role =1
-exports.rahasiauser = function (req, res) {
-    response.ok("URL Authentifikasi role 1!", res);
-};
+//menambahkan data service
+exports.tambahdataservice = function (req, res) {
+    var post = {
+     tgl_service: new Date(),
+     id_user: req.body.id_user,
+     id_montir: req.body.id_montir,
+     jumlah_sparepart: req.body.jumlah_sparepart,	
+     id_sparepart: req.body.id_sparepart,
+     jam_service: req.body.jam_service
+    }
+    var query = "INSERT INTO ?? SET ?";
+    var table = ["t_service"];
+ 
+    query = mysql.format(query, table);
+     connection.query(query, post, function (error, rows) {
+             if (error) {
+                 console.log(error);
+             } else {
+                 response.ok("Berhasil Menambahkan Data", res)
+             }
+         });
+ };
 
-//halaman untuk user role =2
-exports.rahasiapelanggan = function (req, res) {
-    response.ok("URL Authentifikasi role 2!", res);
-};
+ exports.halamanrahasia = function(req,res){
+    response.ok("Halaman ini hanya untuk pelanggan dengan level = 2!",res);
+}
+exports.halamanrahasia1 = function(req,res){
+    response.ok("Halaman ini hanya untuk admin dengan level = 1!",res);
+}

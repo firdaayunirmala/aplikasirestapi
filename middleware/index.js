@@ -1,12 +1,17 @@
 var express = require('express');
 var auth = require('./auth');
 var router = express.Router();
-
+var verifikasi = require('./verifikasi')
+var jsonku = require('../controller');
 
 //daftarkan menu registrasi
 router.post('/api/v1/register', auth.registrasi);
 router.post('/api/v1/login', auth.login);
-router.get('/api/v1/user', verifikasi(1), auth.rahasiauser);
-router.get('/api/v1/pelanggan', verifikasi(2), auth.rahasiapelanggan);
+router.post('/api/v1/tambahdataservice', auth.tambahdataservice);
 
-module.exports = router;
+//daftarkan autorisasi
+
+router.get('/api/v1/rahasia', verifikasi(), auth.halamanrahasia);
+router.get('/api/v1/rahasia1', verifikasi(), auth.halamanrahasia1);
+
+module.exports=router;
