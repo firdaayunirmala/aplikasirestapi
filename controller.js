@@ -73,4 +73,24 @@ exports.tampilidmontir = function (req, res) {
 
 }
 
+//mengetahui total harga servis oleh pelanggan
+exports.hitungtotal = function (req, res) {
+    let id = req.params.id;
+  
+    connection.query('SELECT * t_sparepart.harga_sparepart * t_servis.jumlah_sparepart AS total_harga_sparepart FROM t_sparepart, t_servis WHERE t_sparepart.id_sparepart = t_servis.id_sparepat AND t_servis.id_user = ?', [id],
+    function (error, rows, fields) {
+
+        if (error) {
+
+            connection.log(error);
+
+        } else
+
+            response.ok("Berhasilkan menampilkan total service", rows, res)
+
+    });
+};
+
+
+
 //end

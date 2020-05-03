@@ -63,7 +63,6 @@ exports.login = function (req, res) {
             console.log(error)
         }
         else {
-
             if (rows.length == 1) {
                 var token = jwt.sign({ rows }, config.secret, {
                     expiresIn: 1440
@@ -74,12 +73,10 @@ exports.login = function (req, res) {
                     id_user: id_user,
                     access_token: token,
                     ip_address: ip.address()
-
                 }
 
                 var query = "INSERT INTO  ?? SET ?";
                 var table = ["akses_token"];
-
 
                 query = mysql.format(query, table);
                 connection.query(query, data, function (error, rows) {
@@ -126,7 +123,7 @@ exports.tambahdataservice = function (req, res) {
     });
 };
 
-//
+
 exports.halamanrahasia = function (req, res) {
     response.ok("Halaman ini hanya untuk admin dengan level = 1!", res);
 }
