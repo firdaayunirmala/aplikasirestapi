@@ -137,6 +137,23 @@ exports.tambahsparepart = function(req , res){
     });
 };
 
+//menambahkan data untuk tabel user
+exports.tambahuser = function (req, res) {
+    var nama_user = req.body.nama_user;
+    var email = req.body.email;
+    var password = req.body.password;
+    var role = req.body.role;
+    
 
+    connection.query('INSERT INTO t_user (nama_user, email, password, role) VALUES(?,?,?,?)',
+        [nama_user, email, password, role], 
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil Menambahkan Data  User", res)
+            }
+        });
+};
 
 //end
