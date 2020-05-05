@@ -156,4 +156,20 @@ exports.tambahuser = function (req, res) {
         });
 };
 
+//menambahkan data level
+exports.tambahlevel = function (req, res) {
+    var nama_level = req.body.nama_level;
+    
+    connection.query('INSERT INTO t_level (nama_level) VALUES(?)',
+        [nama_level], 
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil Menambahkan Data Level", res)
+            }
+        });
+};
+
+
 //end
