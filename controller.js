@@ -243,4 +243,19 @@ exports.ubahuser = function (req, res) {
         });
 };
 
+exports.ubahlevel = function (req, res) {
+    var id_level = req.body.id_level;
+    var nama_level = req.body.nama_level;
+    
+    connection.query('UPDATE t_level SET nama_level=? WHERE id_level=?',
+        [id_level,nama_level], 
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil Mengubah Data", res)
+            }
+        });
+};
+
 //end
