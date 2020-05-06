@@ -293,4 +293,18 @@ exports.hapusmontir = function(req, res){
     });
 };
 
+//Menghapus data berdasarkan id
+exports.hapusSparepart = function(req, res){
+    var id = req.body.id_sparepart;
+    connection.query('DELETE FROM t_sparepart WHERE id_sparepart=?', [id],
+    function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+        } else {
+            response.ok("Berhasil Hapus Data", res)
+        }
+    });
+};
+
+
 //end
