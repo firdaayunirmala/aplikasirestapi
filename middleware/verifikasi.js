@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/secret');
 
-function verifikasi() {
+function verifikasi( ) {
     return function (req, rest, next) {
         var role = req.body.role;
       
@@ -27,7 +27,7 @@ function verifikasi() {
     }
 }
 
-function verifikasi() {
+function verifikasi( ) {
     return function (req, rest, next) {
         var role = req.body.role;
 
