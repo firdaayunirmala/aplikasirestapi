@@ -243,6 +243,7 @@ exports.ubahuser = function (req, res) {
         });
 };
 
+//mengubah data di tabel level
 exports.ubahlevel = function (req, res) {
     var id_level = req.body.id_level;
     var nama_level = req.body.nama_level;
@@ -258,4 +259,24 @@ exports.ubahlevel = function (req, res) {
         });
 };
 
+//mengubah data di tabel service
+exports.ubahservis = function (req, res) {
+    var id_servis = req.body.id_service;
+    var tgl_servis = new Date();
+    var id_user = req.body.id_user;
+    var id_montir = req.body.id_montir;
+    var jumlah_sparepart = req.body.jumlah_sparepart;
+    var id_sparepart = req.body.id_sparepart;
+    var total_servis = req.body.total_servis;
+    
+    connection.query('UPDATE t_servis SET tgl_servis=?, id_user=?, id_montir=?, jumlah_sparepart=?, id_sparepart=? total_servis=? WHERE id_servis=?',
+        [id_servis, tgl_servis, id_user, id_montir, jumlah_sparepart, id_sparepart, total_servis], 
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil Mengubah Data", res)
+            }
+        });
+};
 //end
