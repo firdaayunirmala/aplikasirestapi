@@ -225,4 +225,22 @@ exports.ubahsparepart = function (req, res) {
         });
 };
 
+//mengubah data di tabel User
+exports.ubahuser = function (req, res) {
+    var nama_user = req.body.nama_user;
+    var email = req.body.email;
+    var password = req.body.password;
+    var role = req.body.role;
+
+    connection.query('UPDATE t_user SET nama_user=?, email=?, password=?, role=? WHERE id_user=?',
+        [nama_user, email, password, role], 
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil Mengubah Data", res)
+            }
+        });
+};
+
 //end

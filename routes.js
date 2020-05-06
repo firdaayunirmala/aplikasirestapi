@@ -45,5 +45,6 @@ module.exports = function (app) {
     app.route('/ubahsparepart')
         .put(jsonku.ubahsparepart);
 
-    
+    app.route('/ubahuser')
+        .put(jsonku.ubahuser);
 } 
