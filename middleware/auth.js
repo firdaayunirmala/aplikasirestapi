@@ -358,6 +358,86 @@ exports.ubahservis = function (req, res) {
         });
 };
 
+//menghapus data di tabel montir
+exports.hapusmontir = function (req, res) {
+    var id_montir = req.body.id_montir;    
+
+    connection.query('DELETE FROM t_montir WHERE id_montir=?',
+    [id_montir],
+
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Data Montir Berhasil Dihapus", res);
+            }
+        });
+};
+
+//menghapus data di tabel sparepart
+exports.hapussparepart = function (req, res) {
+    var id_sparepart = req.body.id_sparepart;    
+
+    connection.query('DELETE FROM t_sparepart WHERE id_sparepart=?',
+    [id_sparepart],
+
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Data Sparepart Berhasil Dihapus", res);
+            }
+        });
+};
+
+//menghapus data di tabel user
+exports.hapususer = function (req, res) {
+    var id_user = req.body.id_user;    
+
+    connection.query('DELETE FROM t_user WHERE id_user=?',
+    [id_user],
+
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Data User Berhasil Dihapus", res);
+            }
+        });
+};
+
+//menghapus data di tabel level
+exports.hapuslevel = function (req, res) {
+    var id_level = req.body.id_level;    
+
+    connection.query('DELETE FROM t_level WHERE id_level=?',
+    [id_level],
+
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Data Level Berhasil Dihapus", res);
+            }
+        });
+};
+
+//menghapus data di tabel servis
+exports.hapusservis = function (req, res) {
+    var id_servis = req.body.id_servis;    
+
+    connection.query('DELETE FROM t_servis WHERE id_servis=?',
+    [id_servis],
+
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Data Servis Berhasil Dihapus", res);
+            }
+        });
+};
+
 exports.halamanpelanggan = function (req, res) {
     response.ok("Halaman ini hanya untuk admin dengan level = 2!", res);
 }
