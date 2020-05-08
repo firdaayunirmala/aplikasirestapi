@@ -100,6 +100,140 @@ exports.login = function (req, res) {
     });
 }
 
+//Menambah data montir
+exports.tambahmontir = function(req, res) {
+    var post = {
+        nama_montir: req.body.nama_montir,
+        harga_perjam: req.body.harga_perjam
+    }
+
+    var query = "SELECT nama_montir FROM ?? WHERE ??=?";
+    var table = ["t_montir", "nama_montir", post.nama_montir];
+
+    query = mysql.format(query,table);
+
+    connection.query(query, function(error,rows){
+        if(error){
+            console.log(error);
+        }else{
+            if(rows.length == 0){
+                var query = "INSERT INTO ?? SET ?";
+                var table = ["t_montir"];
+                query = mysql.format(query,table);
+                connection.query(query, post, function(error, rows){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        response.ok("Berhasil menambahkan data Montir baru", res);
+                    }
+                });
+            }else{
+                response.ok("Montir sudah terdaftar!",res);
+            }
+        }
+    });
+};
+
+//Menambah data sparepart
+exports.tambahsparepart = function(req, res) {
+    var post = {
+        nama_sparepart: req.body.nama_sparepart,
+        harga_sparepart: req.body.harga_sparepart,
+        satuan: req.body.satuan
+    }
+    var query = "SELECT nama_sparepart FROM ?? WHERE ??=?";
+    var table = ["t_sparepart", "nama_sparepart", post.nama_sparepart];
+    query = mysql.format(query,table);
+
+    connection.query(query, function(error,rows){
+        if(error){
+            console.log(error);
+        }else{
+            if(rows.length == 0){
+                var query = "INSERT INTO ?? SET ?";
+                var table = ["t_sparepart"];
+                query = mysql.format(query,table);
+                connection.query(query, post, function(error, rows){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        response.ok("Berhasil menambahkan data Sparepart baru", res);
+                    }
+                });
+            }else{
+                response.ok("Sparepart sudah terdaftar!",res);
+            }
+        }
+    });
+};
+
+//Menambahkan data user
+exports.tambahuser = function(req,res) {
+    var post = {
+        nama_user: req.body.nama_user,
+        email: req.body.email,
+        password: md5(req.body.password),
+        role: req.body.role,
+    
+    }
+    var query = "SELECT nama_user FROM ?? WHERE ??=?";
+    var table = ["t_user", "nama_user", post.nama_user];
+    query = mysql.format(query,table);
+    connection.query(query, function(error, rows) {
+        if(error){
+            console.log(error);
+        }else {
+            if(rows.length == 0){
+                var query = "INSERT INTO ?? SET ?";
+                var table = ["t_user"];
+                query = mysql.format(query, table);
+                connection.query(query, post, function(error, rows){
+                    if(error){
+                        console.log(error);
+                    }else {
+                        response.ok("Berhasil menambahkan data user baru", res);
+                    }
+                });
+            }else {
+                response.ok("user sudah terdaftar!",res);
+            }
+        }
+    });
+};
+
+//Menambahkan data level
+exports.tambahlevel = function(req, res) {
+    var post = {
+        nama_level: req.body.nama_level
+    }
+
+    var query = "SELECT nama_level FROM ?? WHERE ??=?";
+    var table = ["t_level", "nama_level", post.nama_level];
+
+    query = mysql.format(query,table);
+
+    connection.query(query, function(error,rows){
+        if(error){
+            console.log(error);
+        }else{
+            if(rows.length == 0){
+                var query = "INSERT INTO ?? SET ?";
+                var table = ["t_level"];
+                query = mysql.format(query,table);
+                connection.query(query, post, function(error, rows){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        response.ok("Berhasil menambahkan data level baru", res);
+                    }
+                });
+            }else{
+                response.ok("Level sudah terdaftar!",res);
+            }
+        }
+    });
+};
+
 //menambahkan data service
 exports.tambahservis = function (req, res) {
     var post = {
@@ -134,11 +268,9 @@ exports.tambahservis = function (req, res) {
     });
 };
 
-
-
-exports.halamanadmin = function (req, res) {
-    response.ok("Halaman ini hanya untuk admin dengan level = 1!", res);
-}
 exports.halamanpelanggan = function (req, res) {
-    response.ok("Halaman ini hanya untuk pelanggan dengan level = 2!", res);
+    response.ok("Halaman ini hanya untuk admin dengan level = 2!", res);
+}
+exports.halamanadmin = function (req, res) {
+    response.ok("Halaman ini hanya untuk pelanggan dengan level = 1!", res);
 }
