@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/secret');
 
-function verifikasi( ) {
+function verifikasi2() {
     return function (req, rest, next) {
-        var role = req.body.role;
-      
+        var roles = req.body.roles;
+
         var tokenWithBearer = req.headers.authorization;
         if (tokenWithBearer) {
             var token = tokenWithBearer.split(' ')[1];
@@ -13,7 +13,7 @@ function verifikasi( ) {
                 if (err) {
                     return rest.status(401).send({ auth: false, mesaage: 'Token tidak terdaftar!' });
                 } else {
-                    if (role == 2) {
+                    if (roles == 2) {
                         req.auth = decoded;
                         next();
                     } else {
@@ -27,19 +27,19 @@ function verifikasi( ) {
     }
 }
 
-function verifikasi( ) {
+function verifikasi1() {
     return function (req, rest, next) {
-        var role = req.body.role;
+        var roles = req.body.roles;
 
         var tokenWithBearer = req.headers.authorization;
         if (tokenWithBearer) {
-            var token = tokenWithBearer.split(' ')[1];
+            var token = tokenWithBearer.split(' ')[2];
 
             jwt.verify(token, config.secret, function (err, decoded) {
                 if (err) {
                     return rest.status(401).send({ auth: false, mesaage: 'Token tidak terdaftar!' });
                 } else {
-                    if (role == 1) {
+                    if (roles == 1) {
                         req.auth = decoded;
                         next();
                     } else {
@@ -54,4 +54,5 @@ function verifikasi( ) {
 }
 
 
-module.exports = verifikasi;
+module.exports = verifikasi1;
+module.exports = verifikasi2;

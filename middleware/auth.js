@@ -101,32 +101,44 @@ exports.login = function (req, res) {
 }
 
 //menambahkan data service
-exports.tambahdataservice = function (req, res) {
+exports.tambahservis = function (req, res) {
     var post = {
-        tgl_servis: new Date(),
-        id_user: req.body.id_user,
-        id_montir: req.body.id_montir,
-        jumlah_sparepart: req.body.jumlah_sparepart,
-        id_sparepart: req.body.id_sparepart,
-        jam_servis: req.body.jam_servis
+     tgl_servis: new Date(),
+     id_user: req.body.id_user,
+     id_montir: req.body.id_montir,
+     jumlah_sparepart: req.body.jumlah_sparepart,	
+     id_sparepart: req.body.id_sparepart
     }
-    var query = "INSERT INTO ?? SET ?";
-    var table = ["t_servis"];
-
-    query = mysql.format(query, table);
-    connection.query(query, post, function (error, rows) {
-        if (error) {
+      var query = "SELECT tgl_servis FROM ?? WHERE ??=?";
+    var table = ["t_servis", "tgl_servis", post.tgl_servis];
+    query = mysql.format(query,table);
+    connection.query(query, function(error,rows){
+        if(error){
             console.log(error);
-        } else {
-            response.ok("Berhasil Menambahkan Data", res)
+        }else{
+            if(rows.length == 0){
+                var query = "INSERT INTO ?? SET ?";
+                var table = ["t_servis"];
+                query = mysql.format(query,table);
+                connection.query(query, post, function(error, rows){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        response.ok("Berhasil menambahkan data Servis baru", res);
+                    }
+                });
+            }else{
+                response.ok("Servis sudah terdaftar!",res);
+            }
         }
     });
 };
 
 
-exports.halamanrahasia = function (req, res) {
+
+exports.halamanadmin = function (req, res) {
     response.ok("Halaman ini hanya untuk admin dengan level = 1!", res);
 }
-exports.halamanrahasia1 = function (req, res) {
+exports.halamanpelanggan = function (req, res) {
     response.ok("Halaman ini hanya untuk pelanggan dengan level = 2!", res);
 }
