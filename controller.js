@@ -75,9 +75,8 @@ exports.tampilidmontir = function (req, res) {
 
 //mengetahui total harga servis oleh pelanggan
 exports.hitungtotal = function (req, res) {
-    let id = req.params.id;
-
-    connection.query('SELECT * t_sparepart.harga_sparepart * t_servis.jumlah_sparepart AS total_harga_sparepart FROM t_sparepart, t_servis WHERE t_sparepart.id_sparepart = t_servis.id_sparepat AND t_servis.id_user = ?', [id],
+  
+    connection.query('SELECT t_user.nama_user, t_servis.tgl_servis t_montir.nama_montire, t_sparepart.nama_sparepart, t_sparepart.harga_sparepart, t_servis.jumlah_sparepart, (t_montir.harga_perjam + t_servis.jumlah_sparepart * t_sparepart.harga_sparepart) AS total_harga_sparepart FROM t_servis INNER JOIN t_sparepart INNER JOIN t_user WHERE t_sparepart.id_sparepart = t_servis.id_sparepat AND t_servis.id_montir = t_montir.id_montir AND t_servis.id_user = t_user.id_user ORDER BY t_user.id_user',
         function (error, rows, fields) {
 
             if (error) {

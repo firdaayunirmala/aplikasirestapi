@@ -34,6 +34,9 @@ router.post('/api/v1/tambahlevel', verifikasi(), auth.tambahlevel);
 router.put('/api/v1/ubahlevel', verifikasi(), auth.ubahlevel);
 router.delete('/api/v1/hapuslevel', verifikasi(), auth.hapuslevel);
 
+//daf
+router.get('/api/v1/totalharga',verifikasi(), auth.totalharga);
+
 //daftarkan autorisasi
 router.get('/api/v1/rahasiaa', verifikasi(), auth.halamanadmin);
 router.get('/api/v1/rahasiap', verifikasi(), auth.halamanpelanggan);

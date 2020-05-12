@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/secret');
-
 function verifikasi() {
     return function (req, rest, next) {
         var roles = req.body.roles;
@@ -8,7 +7,6 @@ function verifikasi() {
         var tokenWithBearer = req.headers.authorization;
         if (tokenWithBearer) {
             var token = tokenWithBearer.split(' ')[1];
-
             //verifikasi
             jwt.verify(token, config.secret, function (err, decoded) {
                 if (err) {
@@ -31,5 +29,4 @@ function verifikasi() {
         }
     }
 }
-
 module.exports = verifikasi;
